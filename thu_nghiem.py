@@ -1,18 +1,186 @@
-import itertools
+# strDecrypt = """
+# ГРАФИНЯБЫЛАЖЕНЩИНАСВОСТОЧНЫМТИПОМТИПОМДУДОГОЛИЦАЛЕТСОРОКАПЯТИВИДИМОИЗНУРЕННАЯДЕТЬМИКОТОРЫХУНЕЙБЫЛОДВЕНАДЦАТЬЧЕЛОВЕКМЕДЛИТЕЛЬНОСТЬЕЕДВИЖЕНИЙИГОВОРАПРОИСХОДИВШАЯОТСЛАБОСТИТИЛПРИДАВАЛАЕЙЗНЯЧИТЕЛЬНЫЙВИДВНУШАВШИЙУВАЖЕНИЕКНЯГИНЯАННАМИХАЙЛОВНАДРУБЕЦКАЯКАКДОМАШНИЙЧЕЛОВЕКСИДЕЛАТУТЖЕПОМОГАЯВДЕЛЕПРИНИМАНИЯИЗАНИМАНИЯРАЗГОВОРОМГОСТЕЙ
+# """
+str_template = "ГРАФИНЯБЫЛАЖЕНЩИНАСВОСТОЧНЫМТИПОМТИПОМДУДОГОЛИЦАЛЕТСОРОКАПЯТИВИДИМОИЗНУРЕННАЯДЕТЬМИКОТОРЫХУНЕЙБЫЛОДВЕНАДЦАТЬЧЕЛОВЕКМЕДЛИТЕЛЬНОСТЬЕЕДВИЖЕНИЙИГОВОРАПРОИСХОДИВШАЯОТСЛАБОСТИТИЛПРИДАВАЛАЕЙЗНЯЧИТЕЛЬНЫЙВИДВНУШАВШИЙУВАЖЕНИЕКНЯГИНЯАННАМИХАЙЛОВНАДРУБЕЦКАЯКАКДОМАШНИЙЧЕЛОВЕКСИДЕЛАТУТЖЕПОМОГАЯВДЕЛЕПРИНИМАНИЯИЗАНИМАНИЯРАЗГОВОРОМГОСТЕЙ"
 
-# strEncr = """ЮРЬЙЖ КБМПО ЬЛФКЯ ЖКЬЗГ ЦЗЭЦУ КПДЭЖ ЫЦДЩН ШЦЮЦО ЖИЬОФ ЭЗЦРЦ СЬЫБЭ ЖГЖШЖ ЭЦРПЩ НКФЕМ ПОЦШГ ЖГЖШЖ ДИЖАК НРФКК ББШФЭ
-# ФКЬШИ БЭТУФ СЦГФС ДФШОЖ ЭФОТК ЦЭЭТФ ФШГЖЛ ФЮЖЕЖ ЮЦГЦР БЫРИЖ ЗЩЦШЖ ГВЬБЦ ЭЗОЬМ ЦЭЭЖЭ ЖОЫРЖ
-# ШЬГЬО ЬФЕАК БУЖЭФ ОТКПЕ ГЖШГК НВЬГВ ЖЕНГЬ ЛФКЖФ СКБЮЖ КБЬКк ьджщь ЕОЦГК ЬШРНМ ФИСЬБ Сьсшц дьвкЖ ЕУФОЦ ГФСЭЖ ШФОЬЭ НЭЛФЫ ЦДЦЮЬ БГШФО ФЫРЖК ЖДЬКЖ БЖАБК ЖДЬКЖ
-# БРЬАЮЦГЦРЦДЮЦЗЭФЕ"""
-strEncr = """
+strDecrypt = """
 ЮРЬЙЖ КБМПО ЬЛФКЯ ЖКЬЗГ ЦЗЭЦУ КПДЭЖ ЫЦДЭЖ ЫЦДШН ШЦЮЦО ЖИЬОФ ЭЗЦРЦ СЬЫБЭ ЖГЖШЖ ДЦЖАК НРФКК ЬБШФЭ ТДЖСЦ ЭЦРПЩ НКФЕМ ПОЦШГ ФКЬШИ ЬЭТУФ ОЦГФС ДФШОЖ ЭФОТК ЦЗЭТФ ФШГЖЛ ФКЖЕЖ ЮЦГЦР ЬЫРЦЖ ЗЩЦШЖ ГВЬБЦ ЭЗОЬМ ЦЗЭЖЭ ЖОЫРЖ ШЬГЬО ЬФЕАК БУЖЭФ ОТКПЕ ГЖШГК НВЬГВ ЖЕНГЬ ЛФКЖФ СКБЮЖ КБЬКК ЬДЖЩЬ ЕОЦГК ЬШРНМ ФИСЬБ СЬСШЦ ДЬВКЖ ЕУФОЦ ГФСЗЖ ШФОЬЭ НЭЛФЫ ЦДЦЮЬ БГШФО ФЫРЖК ЖДЬКЖ БЖАЬК ЖДЬКЖ БРЬАЮ ЦГЦРЦ ДЮЦЗЭ ФЕ
 """
-strEncr = strEncr.replace("Ъ", "ь")
-strEncr = strEncr.replace(" ", "")
-strEncr = strEncr.replace("\n", "")
-strEncr = strEncr.upper()
+strDecrypt = strDecrypt.replace("Ъ", "ь")
+strDecrypt = strDecrypt.replace(" ", "")
+strDecrypt = strDecrypt.replace("\n", "")
+strDecrypt = strDecrypt.upper()
+strDecrypt = strDecrypt.replace("\n", "").replace(" ", "")
 
-# print(strEncr)
+str_template = str_template.replace("\n", "")
+ord_A = ord("А")
+
+
+def tao_danh_sach_key_1(strDecrypt):
+    arrTS_enc = [0] * 32
+    for elem in strDecrypt:
+        arrTS_enc[ord(elem) - ord_A] += 1
+    for i in range(26, 31):
+        arrTS_enc[i] = arrTS_enc[i + 1]
+    arrTS_enc.pop(-1)
+    tu_dien_enc = {i: arrTS_enc[i] for i in range(len(arrTS_enc))}
+    # print(tu_dien)
+    danh_sach_key_enc = sorted(tu_dien_enc, key=tu_dien_enc.get, reverse=True)
+    print(danh_sach_key_enc)
+    return danh_sach_key_enc
+
+
+danh_sach_key_enc = tao_danh_sach_key_1(strDecrypt)
+danh_sach_key_de_so_sanh = tao_danh_sach_key_1(str_template)
+# danh_sach_key_enc = [
+#     22,
+#     20,
+#     28,
+#     6,
+#     10,
+#     29,
+#     7,
+#     3,
+#     16,
+#     14,
+#     17,
+#     24,
+#     4,
+#     27,
+#     13,
+#     15,
+#     0,
+#     1,
+#     30,
+#     12,
+#     5,
+#     25,
+#     19,
+#     18,
+#     2,
+#     11,
+#     23,
+#     8,
+#     31,
+#     26,
+#     9,
+# ]
+# temp_l1 = [
+#     6,
+#     22,
+#     27,
+#     10,
+#     20,
+#     28,
+#     3,
+#     14,
+#     24,
+#     4,
+#     1,
+#     16,
+#     7,
+#     5,
+#     17,
+#     13,
+#     26,
+#     29,
+#     15,
+#     18,
+#     0,
+#     2,
+#     11,
+#     12,
+#     19,
+#     8,
+#     25,
+#     9,
+#     30,
+#     21,
+#     23,
+# ]
+# temp_l2 = [
+#     22,
+#     20,
+#     27,
+#     6,
+#     10,
+#     28,
+#     7,
+#     3,
+#     16,
+#     14,
+#     17,
+#     24,
+#     4,
+#     26,
+#     13,
+#     15,
+#     0,
+#     1,
+#     29,
+#     12,
+#     5,
+#     25,
+#     19,
+#     18,
+#     2,
+#     11,
+#     23,
+#     8,
+#     30,
+#     25,
+#     9,
+# ]
+
+
+# for i in range(31):
+#     print(i, end=",")
+# print()
+# for elem in temp_l1:
+#     if elem in temp_l2:
+#         print(temp_l2.index(elem), end=",")
+#     else:
+#         print(-1, end=",")
+# print()
+# for i in range(len(danh_sach_key_enc)):
+#     if danh_sach_key_enc[i] >= 26:
+#         danh_sach_key_enc[i] -= 1
+# print(danh_sach_key_enc)
+def tao_table_2_chieu_bigram_loai1(strDecrypted):
+    Denta_enc = [[0] * 31 for i in range(31)]
+    for i in range(len(strDecrypted) - 1):
+        f, l = ord(strDecrypted[i]) - ord_A, ord(strDecrypted[i + 1]) - ord_A
+        if f > 26:
+            f -= 1
+        if l > 26:
+            l -= 1
+        if f == 26 or l == 26:
+            continue
+        Denta_enc[f][l] += 1
+    s_Denta = 0
+    for el in Denta_enc:
+        s_Denta += sum(el)
+    for r in Denta_enc:
+        for cl in range(len(r)):
+            r[cl] /= s_Denta
+    return Denta_enc
+
+
+Denta_enc = tao_table_2_chieu_bigram_loai1(strDecrypted=strDecrypt)
+mang_ts_de_so_sanh = tao_table_2_chieu_bigram_loai1(str_template)
+
+
+def hoan_vi_hang_cot(danh_sach_key_enc, Denta_enc):
+    danh_sach_da_dao_Denta = []
+    danh_sach_da_dao_Denta = [Denta_enc[i] for i in danh_sach_key_enc]
+    danh_sach_da_dao_Denta = [
+        [hang[i] for i in danh_sach_key_enc] for hang in danh_sach_da_dao_Denta
+    ]
+    return danh_sach_da_dao_Denta
+
+
+danh_sach_da_dao_Denta = hoan_vi_hang_cot(danh_sach_key_enc, Denta_enc)
+danh_sach_da_dao_B = hoan_vi_hang_cot(danh_sach_key_de_so_sanh, mang_ts_de_so_sanh)
 # l3 = [
 #     2,
 #     12,
@@ -983,165 +1151,40 @@ strEncr = strEncr.upper()
 # for r in TS:
 #     for cl in range(len(r)):
 #         r[cl] /= s_L3
+# mang_ts_de_so_sanh = [0] * 31
+# for i in range(31):
+#     t = -TS[i][i]
+#     t += sum(TS[i])
+#     for j in range(len(TS)):
+#         t += TS[j][i]
+#     mang_ts_de_so_sanh[i] = t
+# tu_dien_arr_original = {
+#     i: mang_ts_de_so_sanh[i] for i in range(len(mang_ts_de_so_sanh))
+# }
+# danh_sach_key_de_so_sanh = sorted(
+#     tu_dien_arr_original, key=tu_dien_arr_original.get, reverse=True
+# )
 
-str = str.upper()
+# danh_sach_da_dao_B = []
+# danh_sach_da_dao_B = [TS[i] for i in danh_sach_key_de_so_sanh]
+# danh_sach_da_dao_B = [
+#     [hang[i] for i in danh_sach_key_de_so_sanh] for hang in danh_sach_da_dao_B
+# ]
 
-TB_XS = [0] * 32
-ord_A = ord("А")
-for i in str:
-    t = ord(i) - ord_A
-    if t <= 31 and t >= 0:
-        # print(t)
-        TB_XS[t] += 1
-# print(TB_XS)
-tu_dien2 = {i: TB_XS[i] for i in range(len(TB_XS))}
-danh_sach_key2 = sorted(tu_dien2, key=tu_dien2.get, reverse=True)
-
-
-arrTS = [0] * 32
-ord_A = ord("А")
-for elem in strEncr:
-    arrTS[ord(elem) - ord_A] += 1
-tu_dien = {i: arrTS[i] for i in range(len(arrTS))}
-# print(tu_dien)
-danh_sach_keys = sorted(tu_dien, key=tu_dien.get, reverse=True)
-
-# print(danh_sach_keys)
-# tạo mảng delta
-Denta = [[0] * 32 for i in range(32)]
-for i in range(len(strEncr) - 1):
-    f, l = ord(strEncr[i]) - ord_A, ord(strEncr[i + 1]) - ord_A
-    Denta[f][l] += 1
-s_Denta = 0
-for el in Denta:
-    s_Denta += sum(el)
-for r in Denta:
-    for cl in range(len(r)):
-        r[cl] /= s_Denta
-
-################################ tạo bảng cho chiến tranh và hòa bình
-TS = [[0] * 32 for i in range(32)]
-for i in range(len(str) - 1):
-    f, l = ord(str[i]) - ord_A, ord(str[i + 1]) - ord_A
-    if 0 <= f and f <= 31 and 0 <= l and l <= 31:
-        TS[f][l] += 1
-s_TS = 0
-for el in TS:
-    s_TS += sum(el)
-for r in TS:
-    for cl in range(len(r)):
-        r[cl] /= s_TS
-###############################
-
-# 8,14,0,13,5,18,2,11,4,12,31,16,17,9,10,19,15,3,27,28,7,24,6,1,23,22,21,20,25,26,30,29]
-# print(Denta)
-# đảo hàng cột:
-danh_sach_da_dao_Denta = []
-danh_sach_da_dao_Denta = [Denta[i] for i in danh_sach_keys]
-danh_sach_da_dao_Denta = [
-    [hang[i] for i in danh_sach_keys] for hang in danh_sach_da_dao_Denta
-]
-
-tableThayThe = []
-tableThayThe = [chr(elem + ord_A) for elem in danh_sach_keys]
-# print(tableThayThe)
-################################ đảo mảng B
-# temp_B = []
-# temp = 0
-# for i in range(0, 31):
-#     temp = -TS[i][i]
-#     temp += sum(TS[i])
-#     for j in range(31):
-#         temp += TS[j][i]
-#     temp_B.append(temp)
-
-# tu_dien2 = {i: temp_B[i] for i in range(len(temp_B))}
-# danh_sach_key2 = sorted(tu_dien2, key=tu_dien2.get, reverse=True)
-
-danh_sach_da_dao_B = []
-danh_sach_da_dao_B = [TS[i] for i in danh_sach_key2]
-danh_sach_da_dao_B = [[hang[i] for i in danh_sach_key2] for hang in danh_sach_da_dao_B]
+r = 0
+for i in range(len(danh_sach_da_dao_Denta)):
+    for j in range(len(danh_sach_da_dao_Denta[i])):
+        r += abs(danh_sach_da_dao_Denta[i][j] - danh_sach_da_dao_B[i][j])
+print(r)
 
 
-rs = 0
-for r in range(len(danh_sach_da_dao_B)):
-    for l in range(len(danh_sach_da_dao_B[r])):
-        rs += abs(danh_sach_da_dao_B[r][l] - danh_sach_da_dao_Denta[r][l])
-
-
-def write_tofile(danh_sach_key2, tableThayThe):
-    # print(danh_sach_key2)
-    # for i in range(len(danh_sach_key2)):
-    #     if danh_sach_key2[i] >= 26:
-    #         danh_sach_key2[i] += 1
-
-    tableThayThe2 = [chr(elem + ord_A) for elem in danh_sach_key2]
-    # print(danh_sach_key2)
-    # print(rs)
-    # print(strEncr)
-    # for i in range(len(tableThayThe)):
-    #     print(tableThayThe[i], tableThayThe2[i], end="  ")
-    #     strEncr = strEncr.replace(tableThayThe[i], tableThayThe2[i])
-    # print(strEncr)
-    my_dict_decript = dict(zip(tableThayThe, tableThayThe2))
-    with open("resultct_and_hb_permutat.txt", "a", encoding="utf-8") as f:
-        f.write("================================\n\n")
-        for st in strEncr:
-            f.write(my_dict_decript[st])
-
-
-danh_sach_key2_cp = danh_sach_key2.copy()
-check = False
-# def bien_doi():
-i = 0
-while i < 32 - 7:
-    if check:
-        i = 0
-        check = False
-    my_list = danh_sach_key2[i : i + 7].copy()
-    all_permutations = list(itertools.permutations(my_list))
-    for permutat in all_permutations:
-        danh_sach_key2_cp = danh_sach_key2.copy()
-        # tempp = danh_sach_key2_cp[j]
-        # danh_sach_key2_cp[j] = danh_sach_key2_cp[j + i]
-        # danh_sach_key2_cp[j + i] = tempp
-        danh_sach_key2_cp[i : i + 7] = permutat
-        # print(danh_sach_key2_cp)
-        danh_sach_da_dao_B = [TS[x] for x in danh_sach_key2_cp]
-        danh_sach_da_dao_B = [
-            [hang[x] for x in danh_sach_key2_cp] for hang in danh_sach_da_dao_B
-        ]
-        rs_temp = 0
-        for r in range(len(danh_sach_da_dao_B)):
-            for l in range(len(danh_sach_da_dao_B[r])):
-                rs_temp += abs(danh_sach_da_dao_B[r][l] - danh_sach_da_dao_Denta[r][l])
-        if rs_temp < rs and rs_temp < 0.95:
-            # print(danh_sach_key2)
-            write_tofile(danh_sach_key2.copy(), tableThayThe.copy())
-            # print(danh_sach_key2)
-            check = True
-            i = 0
-            danh_sach_key2 = danh_sach_key2_cp.copy()
-            # print(rs, rs_temp)
-            rs = rs_temp
-            # print("Hoan doi")
-            break
-
-    i += 3
-print(rs, rs_temp)
-# print(danh_sach_key2)
-# for i in range(len(danh_sach_key2)):
-#     if danh_sach_key2[i] >= 26:
-#         danh_sach_key2[i] += 1
-
-# tableThayThe2 = [chr(elem + ord_A) for elem in danh_sach_key2]
-
-# print(rs)
-# print(strEncr)
-# for i in range(len(tableThayThe)):
-#     print(tableThayThe[i], tableThayThe2[i], end="  ")
-#     strEncr = strEncr.replace(tableThayThe[i], tableThayThe2[i])
-# print(strEncr)
-# my_dict_decript = dict(zip(tableThayThe, tableThayThe2))
-# for st in strEncr:
-#     print(my_dict_decript[st], end="")
+for i in range(len(danh_sach_key_de_so_sanh)):
+    if danh_sach_key_de_so_sanh[i] >= 26:
+        danh_sach_key_de_so_sanh[i] += 1
+    if danh_sach_key_enc[i] >= 26:
+        danh_sach_key_enc[i] += 1
+for i in range(len(danh_sach_key_de_so_sanh)):
+    print(chr(danh_sach_key_de_so_sanh[i] + ord_A), end=" ")
+print()
+for i in range(len(danh_sach_key_de_so_sanh)):
+    print(chr(danh_sach_key_enc[i] + ord_A), end=" ")
